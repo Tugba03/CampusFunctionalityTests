@@ -1,92 +1,103 @@
 package Test;
 
-import POM.HomePageElements;
+import POM.AccountPageElement;
 import POM.LoginPageElements;
 import Utils.BaseDriver;
 import org.testng.Assert;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.util.concurrent.TimeUnit;
 
 public class LoginTests extends BaseDriver {
 
-    LoginPageElements loginPageElements;
-    HomePageElements homePageElements;
+    LoginPageElements logInPageElements;
+    AccountPageElement accountPageElements;
 
-    String ExpectedMessage = "Welcome, Tugba Son !";
-    String expectedInvalidDataMessage = "Invalid username or password";
+    @Test(priority = 1,dataProvider = "LogInData")
+    public void loginPositiveTest(String userName, String password){
+        logInPageElements= new LoginPageElements(driver);
+        accountPageElements= new AccountPageElement(driver);
 
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        logInPageElements.acceptCookies.click();
+        logInPageElements.userName.sendKeys(userName);
+        logInPageElements.password.sendKeys(password);
+        logInPageElements.logIn.click();
 
-    @Test(priority = 1)
-    @Parameters({"emailInput", "passwordInput" })
-    public void PositiveLoginTest(String userName, String password) {
+        String actualMessage= accountPageElements.welcomeMessage.getText();
+        String expectedMessage="Welcome, Tugba Son !";
 
+        Assert.assertEquals(actualMessage,expectedMessage);
 
-        homePageElements = new HomePageElements(driver);
-        loginPageElements = new LoginPageElements(driver);
+    }
+    @Test(priority = 2,dataProvider = "LogInData2")
+    public void loginNegativeTest2(String userName, String password) {
+        logInPageElements= new LoginPageElements(driver);
+        accountPageElements= new AccountPageElement(driver);
 
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        logInPageElements.acceptCookies.click();
+        logInPageElements.userName.sendKeys(userName);
+        logInPageElements.password.sendKeys(password);
+        logInPageElements.logIn.click();
 
-        loginPageElements.emailInput.sendKeys(userName);
-        loginPageElements.passwordInput.sendKeys(password);
-        loginPageElements.loginButton.click();
+        String actualError=accountPageElements.errorMessage.getText();
+        String expectedError="Invalid username or password";
 
+        Assert.assertEquals(actualError,expectedError);
 
-        String actualWelcomeMessage = homePageElements.welcomeMessage.getText();
-        Assert.assertEquals(actualWelcomeMessage, ExpectedMessage);
+    }
+    @Test(priority = 3,dataProvider = "LogInData3")
+    public void loginNegativeTest3(String userName, String password) {
+        logInPageElements= new LoginPageElements(driver);
+        accountPageElements= new AccountPageElement(driver);
+
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        logInPageElements.acceptCookies.click();
+        logInPageElements.userName.sendKeys(userName);
+        logInPageElements.password.sendKeys(password);
+        logInPageElements.logIn.click();
+
+        String actualError=accountPageElements.errorMessage.getText();
+        String expectedError="Invalid username or password";
+
+        Assert.assertEquals(actualError,expectedError);
+
+    }
+    @Test(priority = 4,dataProvider = "LogInData4")
+    public void loginNegativeTest4(String userName, String password) {
+        logInPageElements= new LoginPageElements(driver);
+        accountPageElements= new AccountPageElement(driver);
+
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        logInPageElements.acceptCookies.click();
+        logInPageElements.userName.sendKeys(userName);
+        logInPageElements.password.sendKeys(password);
+        logInPageElements.logIn.click();
+
+        String actualError=accountPageElements.errorMessage.getText();
+        String expectedError="Invalid username or password";
+
+        Assert.assertEquals(actualError,expectedError);
 
     }
 
-        @Test(priority = 2)
-        @Parameters({"validEmailInput", "invalidPassword"})
-        public void negativeLoginTest(String validEmailInput,String invalidPassword){
+    @DataProvider(name = "LogInData") // Enter your correct email and correct password
+    public Object [][] testDataProvider() {
+        return new Object[][] { {"tgbson03@gmail.com","Tugba12345"}};
+    }
+    @DataProvider(name = "LogInData2") // Enter your incorrect email and correct password
+    public Object [][] testDataProvider2() {
+        return new Object[][] { {"test123@gmail.com","Tugba12345"} };
+    }
+    @DataProvider(name = "LogInData3") // Enter your correct email and incorrect password
+    public Object [][] testDataProvider3() {
+        return new Object[][] { {"tgbson03@gmail.com","asdahiu2"} };
+    }
+    @DataProvider(name = "LogInData4") // Enter your incorrect email and incorrect password
+    public Object [][] testDataProvider4() {
+        return new Object[][]{{"test123@gmail.com", "asdsad"}};
+    }
 
-
-        homePageElements  = new HomePageElements(driver);
-        loginPageElements = new LoginPageElements(driver);
-
-
-        loginPageElements.emailInput.sendKeys(validEmailInput);
-        loginPageElements.passwordInput.sendKeys(invalidPassword);
-        loginPageElements.loginButton.click();
-
-
-       String actualInvalidDataMessage = homePageElements.invalidDataMessage.getText();
-       Assert.assertEquals(actualInvalidDataMessage, expectedInvalidDataMessage);
-
-       }
-
-       @Test(priority =  3)
-       @Parameters({"invalidEmail", "validPassword"})
-        public void negativeLoginTest2(String invalidEmailInput, String validPassword){
-
-           homePageElements  = new HomePageElements(driver);
-           loginPageElements = new LoginPageElements(driver);
-
-
-           loginPageElements.emailInput.sendKeys(invalidEmailInput);
-           loginPageElements.passwordInput.sendKeys(validPassword);
-           loginPageElements.loginButton.click();
-
-
-           String actualInvalidDataMessage = homePageElements.invalidDataMessage.getText();
-           Assert.assertEquals(actualInvalidDataMessage, expectedInvalidDataMessage);
-
-       }
-
-       @Test(priority = 4)
-       @Parameters({"invalidEmailInput", "invalidPassword"})
-       public void negativeLoginTest3(String invalidEmail, String invalidPassword){
-
-           homePageElements  = new HomePageElements(driver);
-           loginPageElements = new LoginPageElements(driver);
-
-           loginPageElements.emailInput.sendKeys(invalidEmail);
-           loginPageElements.passwordInput.sendKeys(invalidPassword);
-           loginPageElements.loginButton.click();
-
-
-           String actualInvalidDataMessage = homePageElements.invalidDataMessage.getText();
-           Assert.assertEquals(actualInvalidDataMessage, expectedInvalidDataMessage);
-
-       }
 }

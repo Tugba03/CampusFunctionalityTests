@@ -1,5 +1,6 @@
 package Utils;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -25,7 +26,10 @@ public class BaseDriver {
             System.setProperty("webdriver.chrome.driver", "C:\\Users\\Tgbso\\Downloads\\chromedriver_win32\\chromedriver.exe");
             driver = new ChromeDriver();
 
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.scrollBy(0,200)");
             driver.manage().window().maximize();
             driver.manage().deleteAllCookies();
 
@@ -37,7 +41,9 @@ public class BaseDriver {
             System.setProperty("webdriver.gecko.driver", "C:\\Users\\Tgbso\\OneDrive\\Documents\\geckodriver.exe");
             driver = new FirefoxDriver();
 
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.scrollBy(0,200)");
             driver.manage().window().maximize();
             driver.manage().deleteAllCookies();
 

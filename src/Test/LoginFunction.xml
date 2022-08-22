@@ -1,18 +1,8 @@
-<suite name="Login Functionality Suite">
-    <test name="Login Test">
+<suite name="Log_In Functionality Test" >
+    <test name="LogIn Test" >
         <parameter name="browser" value="chrome"></parameter>
-        <parameter name="emailInput" value="tgbson03@gmail.com"></parameter>
-        <parameter name="passwordInput" value="Tugba12345"></parameter>
-        <parameter name="validEmailInput" value ="tgbson03@hotmail.com"></parameter>
-        <parameter name="invalidPassword" value="10101010"></parameter>
-        <parameter name="invalidEmail" value="ttt@hotmail.com"></parameter>
-        <parameter name="validPassword" value="Tugba12345"></parameter>
-        <parameter name="invalidEmailInput" value="ttt@hotmail.com"></parameter>
-        <parameter name="invalidPassword" value="10101010"></parameter>
-
         <classes>
             <class name="Test.LoginTests"></class>
         </classes>
     </test>
-
 </suite>

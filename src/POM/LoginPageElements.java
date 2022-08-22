@@ -6,20 +6,22 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class LoginPageElements {
-    public LoginPageElements(WebDriver driver){
+    public LoginPageElements(WebDriver driver) {
         PageFactory.initElements(driver, this);
+
     }
+    @FindBy(xpath="//button[text()='Accept all cookies']")
+    public WebElement acceptCookies;
 
-    @FindBy(id = "mat-input-0" )
-    public WebElement emailInput;
+    @FindBy(xpath="//input[@placeholder='Username']")
+    public WebElement userName;
 
-    @FindBy(id = "mat-input-1")
-    public WebElement passwordInput;
+    @FindBy(xpath="//input[@placeholder='Password']")
+    public WebElement password;
 
-    @FindBy(css = "button[aria-label='LOGIN']")
-    public WebElement loginButton;
-
-
-
-
+    @FindBy(xpath="//button[@aria-label='LOGIN']")
+    public WebElement logIn;
 }
+
+
+
